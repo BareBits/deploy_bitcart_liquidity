@@ -40,3 +40,7 @@ cd ..
 if [ -d "liquidityhelper" ]; then echo "existing liquidityhelper folder found, pulling instead of cloning."; git pull; fi
 if [ ! -d "liquidityhelper" ]; then echo "cloning liquidityhelper"; git clone https://github.com/BareBits/bitcart_liquidity.git; fi
 # set variables
+cd bitcart_liquidity
+cp config.py user_config.py
+echo "ADMIN_EMAIL=$BITCART_ADMIN_EMAIL">>user_config.py
+echo "ADMIN_PASSWORD=$BITCART_ADMIN_PASSWORD">>user_config.py
