@@ -1,2 +1,2 @@
 # deploy_bitcart_liquidity
-Bitcard liquidity helper helper :)
+A simple shell script to deploy Bitcart and liquidity helper in one command
