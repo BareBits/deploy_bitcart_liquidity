@@ -2,8 +2,8 @@
 
 # Critical settings, must be edited
 export BITCART_HOST=myhost.mywebsite.com
-export ADMIN_EMAIL=somebody@website.com
-export ADMIN_PASSWORD=mypassword
+export BITCART_ADMIN_EMAIL=somebody@website.com
+export BITCART_ADMIN_PASSWORD=mypassword
 
 # other settings
 export BITCART_CRYPTOS=btc
