@@ -31,7 +31,7 @@ ufw reload
 # install bitcart
 apt-get update && apt-get install -y git htop iotop python3-venv
 if [ -d "bitcart-docker" ]; then echo "existing bitcart-docker folder found, pulling instead of cloning."; git pull; fi
-if [ ! -d "bitcart-docker" ]; then echo "cloning bitcart-docker"; git clone https://github.com/nothing-stops-this-train/bitcart-docker.git; fi
+if [ ! -d "bitcart-docker" ]; then echo "cloning bitcart-docker"; git clone https://github.com/BareBits/bitcart-docker.git; fi
 cd bitcart-docker
 ./setup.sh
 cd ..
