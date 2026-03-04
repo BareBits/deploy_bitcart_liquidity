@@ -1,9 +1,18 @@
 #!/bin/bash
+# Must be run as root
 
 # Critical settings, must be edited
 export BITCART_HOST=myhost.mywebsite.com
 export BITCART_ADMIN_EMAIL=somebody@website.com
 export BITCART_ADMIN_PASSWORD=mypassword
+
+# Required for email notificiations
+export SMTP_SERVER=''
+export SMTP_PORT=''
+export SMTP_TLS='' # True or False
+export SMTP_SSL='' # True or False
+export SMTP_USERNAME=''
+export SMTP_PASSWORD=''
 
 # other settings
 export BITCART_CRYPTOS=btc
@@ -15,6 +24,14 @@ export BITCARTGEN_DOCKER_IMAGE=bitcart/docker-compose-generator:local
 export BITCART_BITCOIN_EXPOSE=true
 export BTC_DEBUG=true
 export ALLOW_INCOMING_CHANNELS=true
+export SMTP_FROM_EMAIL=$BITCART_ADMIN_EMAIL
+export SMTP_TO_EMAIL=$BITCART_ADMIN_EMAIL
+
+
+# enable automatic updates
+apt install unattended-upgrades -y
+echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections
+dpkg-reconfigure -f noninteractive unattended-upgrades
 
 # configure firewall
 ufw allow 80/tcp
@@ -39,6 +56,7 @@ cd ..
 # install liquidityhelper
 if [ -d "liquidityhelper" ]; then echo "existing liquidityhelper folder found, pulling instead of cloning."; git pull; fi
 if [ ! -d "liquidityhelper" ]; then echo "cloning liquidityhelper"; git clone https://github.com/BareBits/bitcart_liquidity.git; fi
+
 # set variables
 cd bitcart_liquidity
 touch user_config.py
@@ -49,4 +67,49 @@ source .venv/bin/activate
 which python
 pip install -r requirements.txt
 
+# setup automatic run of liquidityhelper
+set -euo pipefail
+
+UNIT_FILE="/etc/systemd/system/liquidityhelper.service"
+
+echo "Creating systemd unit file at ${UNIT_FILE}..."
+
+cat > "${UNIT_FILE}" << 'EOF'
+[Unit]
+Description=LiquidityHelper
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/bash /root/liquidity-helper/run.sh
+
+# Restart behaviour
+Restart=always
+RestartSec=60
+
+# Give up after 10 retries (StartLimitBurst) within a 700s window
+# Window = RestartSec * (StartLimitBurst + 1) = 60 * 11 = 660s, using 700s for headroom
+StartLimitIntervalSec=700
+StartLimitBurst=10
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+echo "Reloading systemd daemon..."
+systemctl daemon-reload
+
+echo "Enabling service to start at boot..."
+systemctl enable liquidityhelper.service
+
+echo ""
+echo "Done. Service 'liquidityhelper' is installed and enabled."
+echo ""
+echo "Useful commands:"
+echo "  Start now:    systemctl start liquidityhelper"
+echo "  Check status: systemctl status liquidityhelper"
+echo "  View logs:    journalctl -u liquidityhelper -f"
+echo "  Disable:      systemctl disable liquidityhelper"
 
