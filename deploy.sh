@@ -8,8 +8,8 @@ set -e
 
 criticalvars=("BITCART_HOST" "BITCART_ADMIN_EMAIL" "BITCART_ADMIN_PASSWORD")
 for var_set in "${criticalvars[@]}"; do
-  if [[ -v $var_set ]]; then
-    echo "$var_set is set (value: $var_set)"
+  if [[ -v "$var_set" ]]; then
+    echo "$var_set is set (value: '${!var_set}')"
 else
     echo "error $var_set is not set!"
     exit
@@ -18,8 +18,8 @@ done
 
 importantvars=("SMTP_SERVER" "SMTP_PORT" "SMTP_TLS" "SMTP_SSL" "SMTP_SSL" "SMTP_USERNAME" "SMTP_PASSWORD")
 for var_set in "${importantvars[@]}"; do
-  if [[ -v $var_set ]]; then
-    echo "$var_set is set (value: $var_set)"
+  if [[ -v "$var_set" ]]; then
+    echo "$var_set is set (value: '${!var_set}')"
 else
     echo "warning var_set is not set!"
     read -p "Press Enter to continue..."
