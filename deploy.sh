@@ -49,6 +49,7 @@ export ALLOW_INCOMING_CHANNELS=true
 export SMTP_FROM_EMAIL=$BITCART_ADMIN_EMAIL
 export SMTP_TO_EMAIL=$BITCART_ADMIN_EMAIL
 
+chmod +x run.sh
 
 # enable automatic updates
 apt install unattended-upgrades -y
@@ -105,7 +106,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=root
-ExecStart=/bin/bash /root/liquidity-helper/run.sh
+ExecStart=/bin/bash /root/deploy_bitcart_liquidity/run.sh
 
 # Restart behaviour
 Restart=always
