@@ -1,6 +1,9 @@
 #!/bin/bash
 # Must be run as root
 
+# Exit on error
+set -e
+
 # Verify critical variables set
 
 criticalvars=("BITCART_HOST" "BITCART_ADMIN_EMAIL" "BITCART_ADMIN_PASSWORD")
