@@ -1,6 +1,28 @@
 #!/bin/bash
 # Must be run as root
 
+# Verify critical variables set
+
+criticalvars=("BITCART_HOST" "BITCART_ADMIN_EMAIL" "BITCART_ADMIN_PASSWORD")
+for var_set in "${criticalvars[@]}"; do
+  if [[ -v var_set ]]; then
+    echo "var_set is set (value: '$var_set')"
+else
+    echo "error $var_set is not set!"
+    exit
+fi  
+done
+
+importantvars=("SMTP_SERVER" "SMTP_PORT" "SMTP_TLS" "SMTP_SSL" "SMTP_SSL" "SMTP_USERNAME" "SMTP_PASSWORD")
+for var_set in "${importantvars[@]}"; do
+  if [[ -v var_set ]]; then
+    echo "var_set is set (value: '$var_set')"
+else
+    echo "warning var_set is not set!"
+    read -p "Press Enter to continue..."
+fi  
+done
+
 # Critical settings, must be edited
 export BITCART_HOST=myhost.mywebsite.com
 export BITCART_ADMIN_EMAIL=somebody@website.com
