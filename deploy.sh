@@ -113,3 +113,9 @@ echo "  Check status: systemctl status liquidityhelper"
 echo "  View logs:    journalctl -u liquidityhelper -f"
 echo "  Disable:      systemctl disable liquidityhelper"
 
+
+# setup automatic docker updates
+wget -O ~/.local/bin/dockcheck.sh "https://raw.githubusercontent.com/mag37/dockcheck/main/dockcheck.sh" && chmod +x ~/.local/bin/dockcheck.sh
+echo "1 1 * * * docker compose pull; docker compose up -d > /root/dockerupdates.log" > /etc/cron.d/docker_update
+
+
