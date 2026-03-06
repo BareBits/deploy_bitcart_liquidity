@@ -4,28 +4,6 @@
 # Exit on error
 set -e
 
-# Verify critical variables set
-
-criticalvars=("BITCART_HOST" "BITCART_ADMIN_EMAIL" "BITCART_ADMIN_PASSWORD")
-for var_set in "${criticalvars[@]}"; do
-  if [[ -v "$var_set" ]]; then
-    echo "$var_set is set (value: '${!var_set}')"
-else
-    echo "error $var_set is not set!"
-    exit
-fi  
-done
-
-importantvars=("SMTP_SERVER" "SMTP_PORT" "SMTP_TLS" "SMTP_SSL" "SMTP_SSL" "SMTP_USERNAME" "SMTP_PASSWORD")
-for var_set in "${importantvars[@]}"; do
-  if [[ -v "$var_set" ]]; then
-    echo "$var_set is set (value: '${!var_set}')"
-else
-    echo "warning var_set is not set!"
-    read -p "Press Enter to continue..."
-fi  
-done
-
 # Critical settings, must be edited
 export BITCART_HOST=myhost.mywebsite.com
 export BITCART_ADMIN_EMAIL=somebody@website.com
@@ -143,5 +121,6 @@ echo "  Disable:      systemctl disable liquidityhelper"
 # setup automatic docker updates
 wget -O ~/.local/bin/dockcheck.sh "https://raw.githubusercontent.com/mag37/dockcheck/main/dockcheck.sh" && chmod +x ~/.local/bin/dockcheck.sh
 echo "1 1 * * * docker compose pull; docker compose up -d > /root/dockerupdates.log" > /etc/cron.d/docker_update
+echo "1 1 1 * * /bin/bash $PWD/update_liquidityhelper.sh > /root/liquidityhelperupdate.log" > /etc/cron.d/docker_update
 
 
