@@ -52,6 +52,7 @@ ufw reload
 
 # install bitcart
 apt-get update && apt-get install -y git htop iotop python3-venv
+cd ~
 if [ -d "bitcart-docker" ]; then echo "existing bitcart-docker folder found, pulling instead of cloning."; git pull; fi
 if [ ! -d "bitcart-docker" ]; then echo "cloning bitcart-docker"; git clone https://github.com/BareBits/bitcart-docker.git; fi
 cd bitcart-docker
@@ -59,6 +60,7 @@ cd bitcart-docker
 cd ..
 
 # install liquidityhelper
+cd ~
 if [ -d "liquidityhelper" ]; then echo "existing liquidityhelper folder found, pulling instead of cloning."; git pull; fi
 if [ ! -d "liquidityhelper" ]; then echo "cloning liquidityhelper"; git clone https://github.com/BareBits/bitcart_liquidity.git; fi
 
@@ -123,6 +125,6 @@ echo "  Disable:      systemctl disable liquidityhelper"
 mkdir -p ~/.local/bin/
 wget -O ~/.local/bin/dockcheck.sh "https://raw.githubusercontent.com/mag37/dockcheck/main/dockcheck.sh" && chmod +x ~/.local/bin/dockcheck.sh
 echo "1 1 * * * ~/.local/bin/dockcheck.sh -af > ~/dockerupdates.log" > /etc/cron.d/docker_update
-echo "1 1 1 * * /bin/bash $PWD/update_liquidityhelper.sh > ~/liquidityhelperupdate.log" > /etc/cron.d/docker_update
+echo "1 1 1 * * /bin/bash ~/deploy_bitcart_liquidity/update_liquidityhelper.sh > ~/liquidityhelperupdate.log" > /etc/cron.d/docker_update
 
 
