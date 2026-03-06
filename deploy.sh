@@ -31,6 +31,7 @@ export SMTP_FROM_EMAIL=$BITCART_ADMIN_EMAIL
 export SMTP_TO_EMAIL=$BITCART_ADMIN_EMAIL
 
 chmod +x run.sh
+chmod +x update_liquidityhelper.sh
 
 # enable automatic updates
 apt install unattended-upgrades -y
