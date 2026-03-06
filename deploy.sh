@@ -90,7 +90,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=root
-ExecStart=/bin/bash /root/deploy_bitcart_liquidity/run.sh
+ExecStart=/bin/bash cd ~/deploy_bitcart_liquidity/;./run.sh
 
 # Restart behaviour
 Restart=always
