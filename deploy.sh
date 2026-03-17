@@ -63,6 +63,8 @@ if [ -d "bitcart-docker" ]; then echo "existing bitcart-docker folder found, pul
 if [ ! -d "bitcart-docker" ]; then echo "cloning bitcart-docker"; git clone https://github.com/BareBits/bitcart-docker.git; fi
 cd bitcart-docker
 ./setup.sh
+sleep 60 # bitcart must be restarted for some unknown reason
+./setup.sh
 cd ..
 
 # install liquidityhelper
@@ -113,7 +115,8 @@ EOF
 
 echo "Reloading systemd daemon..."
 systemctl daemon-reload
-
+echo "Waiting for bitcart to start..."
+sleep 60
 echo "Enabling service to start at boot..."
 systemctl enable liquidityhelper.service
 
