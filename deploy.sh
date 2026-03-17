@@ -26,7 +26,8 @@ set -e
 export BITCART_CRYPTOS=btc
 export BTC_LIGHTNING=True
 export BTC_LIGHTNING_LISTEN=0.0.0.0:9735
-export BITCART_ADDITIONAL_COMPONENTS=tor,btc-ln
+# used to include tor here but no longer do because it broke setup process
+export BITCART_ADDITIONAL_COMPONENTS=btc-ln
 export BTC_LIGHTNING_GOSSIP=true 
 export BITCARTGEN_DOCKER_IMAGE=bitcart/docker-compose-generator:local
 export BITCART_BITCOIN_EXPOSE=true
