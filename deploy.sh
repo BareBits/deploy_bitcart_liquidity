@@ -4,18 +4,23 @@
 # Exit on error
 set -e
 
-# Critical settings, must be edited
-export BITCART_HOST=myhost.mywebsite.com
-export BITCART_ADMIN_EMAIL=somebody@website.com
-export BITCART_ADMIN_PASSWORD=mypassword
+: "${BITCART_HOST?Error: BITCART_HOST environment variable is not set}"
+: "${BITCART_ADMIN_EMAIL?Error: BITCART_ADMIN_EMAIL environment variable is not set}"
+: "${BITCART_ADMIN_PASSWORD?Error: BITCART_ADMIN_PASSWORD environment variable is not set}"
+
+# Some environment vars you need to set prior to calling the script
+# Critical settings, must be included 
+#export BITCART_HOST=myhost.mywebsite.com
+#export BITCART_ADMIN_EMAIL=somebody@website.com
+#export BITCART_ADMIN_PASSWORD=mypassword
 
 # Required for email notificiations
-export SMTP_SERVER=''
-export SMTP_PORT=''
-export SMTP_TLS='' # True or False
-export SMTP_SSL='' # True or False
-export SMTP_USERNAME=''
-export SMTP_PASSWORD=''
+#export SMTP_SERVER=''
+#export SMTP_PORT=''
+#export SMTP_TLS='' # True or False
+#export SMTP_SSL='' # True or False
+#export SMTP_USERNAME=''
+#export SMTP_PASSWORD=''
 
 # other settings
 export BITCART_CRYPTOS=btc
