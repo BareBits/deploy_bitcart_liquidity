@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-cd bitcart_liquidity 
+cd /opt/bitcart_liquidity
 old_head=$(git rev-parse HEAD)
 git pull >> /dev/null
 new_head=$(git rev-parse HEAD)
