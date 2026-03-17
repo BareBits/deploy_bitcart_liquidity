@@ -65,6 +65,8 @@ cd bitcart-docker
 ./setup.sh
 sleep 60 # bitcart must be restarted for some unknown reason
 ./setup.sh
+sleep 60 # bitcart must be restarted for some unknown reason
+./setup.sh
 cd ..
 
 # install liquidityhelper
