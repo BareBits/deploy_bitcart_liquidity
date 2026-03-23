@@ -64,8 +64,6 @@ if [ -d "bitcart-docker" ]; then echo "existing bitcart-docker folder found, pul
 if [ ! -d "bitcart-docker" ]; then echo "cloning bitcart-docker branch $1"; git clone -b "$1" https://github.com/BareBits/bitcart-docker.git; fi
 cd bitcart-docker
 ./setup.sh
-sleep 200 # bitcart must be restarted for some unknown reason
-./setup.sh
 cd ..
 
 # install liquidityhelper
