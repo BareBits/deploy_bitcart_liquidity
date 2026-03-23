@@ -60,8 +60,8 @@ ufw reload
 apt-get update && apt-get install -y git htop iotop python3-venv
 mkdir -p /opt
 cd /opt
-if [ -d "bitcart-docker" ]; then echo "existing bitcart-docker folder found, pulling instead of cloning."; cd bitcart-docker;git pull; fi
-if [ ! -d "bitcart-docker" ]; then echo "cloning bitcart-docker branch $1"; git clone -b "$1" https://github.com/BareBits/bitcart-docker.git; fi
+if [ -d "bitcart-docker" ]; then echo "existing bitcart-docker folder found, pulling instead of cloning."; cd bitcart-docker;git pull; else; echo "cloning bitcart-docker branch $1"; git clone -b "$1" https://github.com/BareBits/bitcart-docker.git;fi
+#if [ ! -d "bitcart-docker" ]; then echo "cloning bitcart-docker branch $1"; git clone -b "$1" https://github.com/BareBits/bitcart-docker.git; fi
 cd bitcart-docker
 ./setup.sh
 cd ..
