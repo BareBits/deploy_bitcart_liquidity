@@ -134,6 +134,7 @@ echo "Waiting for bitcart to start..."
 sleep 60
 echo "Enabling service to start at boot..."
 systemctl enable liquidityhelper.service
+systemctl start liquidityhelper.service
 
 echo ""
 echo "Done. Service 'liquidityhelper' is installed and enabled."
