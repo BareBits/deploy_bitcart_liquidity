@@ -76,6 +76,22 @@ cd bitcart_liquidity
 touch user_config.py
 echo "ADMIN_EMAIL='$BITCART_ADMIN_EMAIL'">>user_config.py
 echo "ADMIN_PASSWORD='$BITCART_ADMIN_PASSWORD'">>user_config.py
+echo "SMTP_SERVER='$BITCART_SMTP_SERVER'">>user_config.py
+echo "SMTP_PORT='$BITCART_SMTP_PORT'">>user_config.py
+
+if [[ "$BITCART_SMTP_SSL" == "TRUE" ]]; then
+    echo "SMTP_SSL=True">>user_config.py
+else
+    echo "SMTP_SSL=False">>user_config.py
+fi
+if [[ "$BITCART_SMTP_TLS" == "TRUE" ]]; then
+    echo "SMTP_TLS=True">>user_config.py
+else
+    echo "SMTP_TLS=False">>user_config.py
+fi
+echo "SMTP_USERNAME='$BITCART_SMTP_USERNAME'">>user_config.py
+echo "SMTP_PASSWORD='$BITCART_SMTP_PASSWORD'">>user_config.py
+echo "LOG_LEVEL='$BITCART_LOG_LEVEL'">>user_config.py
 python3 -m venv .venv
 source .venv/bin/activate
 which python
