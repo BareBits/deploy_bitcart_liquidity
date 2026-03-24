@@ -150,6 +150,7 @@ echo "  Disable:      systemctl disable liquidityhelper"
 
 # setup automatic docker updates
 mkdir -p ~/.local/bin/
+curl -L https://github.com/regclient/regclient/releases/latest/download/regctl-linux-amd64 > /usr/bin/regctl && chmod 775 /usr/bin/regctl && chmod +x /usr/bin/regctl
 wget -O ~/.local/bin/dockcheck.sh "https://raw.githubusercontent.com/mag37/dockcheck/main/dockcheck.sh" && chmod +x ~/.local/bin/dockcheck.sh
 echo "1 1 * * * ~/.local/bin/dockcheck.sh -af > /var/log/dockerupdates.log" > /etc/cron.d/docker_update
 echo "1 1 1 * * /opt/deploy_bitcart_liquidity/update_liquidityhelper.sh > /var/log/liquidityhelperupdate.log" > /etc/cron.d/docker_update
