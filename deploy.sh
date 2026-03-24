@@ -78,6 +78,8 @@ echo "ADMIN_EMAIL='$BITCART_ADMIN_EMAIL'">>user_config.py
 echo "ADMIN_PASSWORD='$BITCART_ADMIN_PASSWORD'">>user_config.py
 echo "SMTP_SERVER='$BITCART_SMTP_SERVER'">>user_config.py
 echo "SMTP_PORT='$BITCART_SMTP_PORT'">>user_config.py
+echo "SMTP_TO_EMAIL='$BITCART_ADMIN_EMAIL'">>user_config.py
+echo "SMTP_FROM_EMAIL='$BITCART_ADMIN_EMAIL'">>user_config.py
 
 if [[ "$BITCART_SMTP_SSL" == "TRUE" ]]; then
     echo "SMTP_SSL=True">>user_config.py
