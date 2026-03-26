@@ -7,6 +7,7 @@ set -e
 : "${BITCART_HOST?Error: BITCART_HOST environment variable is not set}"
 : "${BITCART_ADMIN_EMAIL?Error: BITCART_ADMIN_EMAIL environment variable is not set}"
 : "${BITCART_ADMIN_PASSWORD?Error: BITCART_ADMIN_PASSWORD environment variable is not set}"
+: "${CASHOUT_LIGHTNING_ADDRESS?Error: CASHOUT_LIGHTNING_ADDRESS environment variable is not set}"
 
 # Some environment vars you need to set prior to calling the script
 # Critical settings, must be included 
@@ -80,6 +81,7 @@ echo "SMTP_SERVER='$BITCART_SMTP_SERVER'">>user_config.py
 echo "SMTP_PORT='$BITCART_SMTP_PORT'">>user_config.py
 echo "SMTP_TO_EMAIL='$BITCART_ADMIN_EMAIL'">>user_config.py
 echo "SMTP_FROM_EMAIL='$BITCART_ADMIN_EMAIL'">>user_config.py
+echo "CASHOUT_LIGHTNING_ADDRESS='$CASHOUT_LIGHTNING_ADDRESS'">>user_config.py
 
 if [[ "$BITCART_SMTP_SSL" == "TRUE" ]]; then
     echo "SMTP_SSL=True">>user_config.py
