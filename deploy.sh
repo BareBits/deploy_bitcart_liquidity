@@ -75,13 +75,10 @@ if [ ! -d "liquidityhelper" ]; then echo "cloning liquidityhelper branch $1"; gi
 # set variables
 cd bitcart_liquidity
 touch user_config.py
-echo "ADMIN_EMAIL='$BITCART_ADMIN_EMAIL'">>user_config.py
-echo "ADMIN_PASSWORD='$BITCART_ADMIN_PASSWORD'">>user_config.py
-echo "SMTP_SERVER='$BITCART_SMTP_SERVER'">>user_config.py
-echo "SMTP_PORT='$BITCART_SMTP_PORT'">>user_config.py
+
+# manual variables
 echo "SMTP_TO_EMAIL='$BITCART_ADMIN_EMAIL'">>user_config.py
 echo "SMTP_FROM_EMAIL='$BITCART_ADMIN_EMAIL'">>user_config.py
-echo "CASHOUT_LIGHTNING_ADDRESS='$CASHOUT_LIGHTNING_ADDRESS'">>user_config.py
 
 if [[ "$BITCART_SMTP_SSL" == "TRUE" ]]; then
     echo "SMTP_SSL=True">>user_config.py
@@ -93,9 +90,19 @@ if [[ "$BITCART_SMTP_TLS" == "TRUE" ]]; then
 else
     echo "SMTP_TLS=False">>user_config.py
 fi
-echo "SMTP_USERNAME='$BITCART_SMTP_USERNAME'">>user_config.py
-echo "SMTP_PASSWORD='$BITCART_SMTP_PASSWORD'">>user_config.py
-echo "LOG_LEVEL='$BITCART_LOG_LEVEL'">>user_config.py
+
+# automatic vars:
+skip=("BITCART_SMTP_TLS" "BITCART_SMTP_SSL") # skip these vars
+for var in $(compgen -v BITCART_); do
+    # Strip the BITCART_ prefix from the variable name
+    key="${var#BITCART_}"
+    if [[ " ${skip[*]} " == *" ${var} "* ]]; then
+        continue
+    fi
+    # Write the key=value pair to the file
+    echo "${key}=${!var}" >> user_config.py
+done
+
 python3 -m venv .venv
 source .venv/bin/activate
 which python
